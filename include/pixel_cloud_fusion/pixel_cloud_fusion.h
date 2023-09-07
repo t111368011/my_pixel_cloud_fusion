@@ -86,6 +86,7 @@ public:
 	float                               fx_, fy_, cx_, cy_;
 	bool                                camera_info_ok_;
 	bool                                camera_lidar_tf_ok_;
+	cv::Mat 							map1, map2, NewCameraMatrix;
 };
 
 class ROSPixelCloudFusionApp
@@ -127,6 +128,9 @@ class ROSPixelCloudFusionApp
 
 	velodyne_pointcloud::PointXYZIR TransformPoint(const velodyne_pointcloud::PointXYZIR &in_point, const tf::StampedTransform &in_transform);
 	pcl::PointXYZ TransformPoint_rgb(const pcl::PointXYZ &in_point, const tf::StampedTransform &in_transform);
+	
+	void tran_img_to_point_intensity(Image_number image ,pcl::PointCloud<velodyne_pointcloud::PointXYZIR>::Ptr &in_cloud ,pcl::PointCloud<velodyne_pointcloud::PointXYZIR>::Ptr out_cloud_intensity);
+	void tran_img_to_point_rgb(Image_number image ,pcl::PointCloud<pcl::PointXYZ>::Ptr &in_cloud ,pcl::PointCloud<pcl::PointXYZRGB>::Ptr out_cloud_rgb);
 
 	void CloudCallback_rgb(const sensor_msgs::PointCloud2::ConstPtr &in_cloud_msg);
 	void CloudCallback_intensity(const sensor_msgs::PointCloud2::ConstPtr &in_cloud_msg);
